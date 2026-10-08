@@ -4,42 +4,49 @@ $studentName = "Ouassima";
 $specialization = "Développement Digital - Option Web Fullstack";
 $githubUrl = "https://github.com/ouassima";
 
-// Liste des modules OFPPT
+// Liste des modules OFPPT - 2ème Année (Web Fullstack)
 $modules = [
     [
-        'id' => 'm101',
-        'code' => 'M101',
-        'title' => 'Acquérir les bases du développement',
+        'id' => 'm201',
+        'code' => 'M201',
+        'title' => 'Préparation d\'un projet web',
         'category' => 'base',
-        'desc' => 'Algorithmique, logique de programmation et structures de données de base.'
+        'desc' => 'Conception UX/UI, Wireframing, Figma, Agile (Scrum) et Cahier des charges.'
     ],
     [
-        'id' => 'm102',
-        'code' => 'M102',
-        'title' => 'Concevoir des sites web statiques',
+        'id' => 'm202',
+        'code' => 'M202',
+        'title' => 'Approche agile et gestion de projet',
+        'category' => 'base',
+        'desc' => 'Planification, suivi de projets informatiques et méthodologies agiles.'
+    ],
+    [
+        'id' => 'm203',
+        'code' => 'M203',
+        'title' => 'Développement Frontend Avancé',
         'category' => 'web',
-        'desc' => 'Création d\'interfaces web structurées et modernes avec HTML5 et CSS3.'
+        'desc' => 'Création d\'interfaces dynamiques avec des frameworks JS (React / VueJS).'
     ],
     [
-        'id' => 'm103',
-        'code' => 'M103',
-        'title' => 'Programmation dynamique côté client',
-        'category' => 'web',
-        'desc' => 'Interactivité web avec JavaScript moderne (ES6+) et manipulation du DOM.'
-    ],
-    [
-        'id' => 'm104',
-        'code' => 'M104',
-        'title' => 'Bases de données relationnelles',
-        'category' => 'database',
-        'desc' => 'Conception (MCD/MLD) et manipulation de bases de données avec SQL / MySQL.'
-    ],
-    [
-        'id' => 'm105',
-        'code' => 'M105',
-        'title' => 'Développement côté serveur',
+        'id' => 'm204',
+        'code' => 'M204',
+        'title' => 'Développement Backend & API',
         'category' => 'backend',
-        'desc' => 'Création d\'applications web dynamiques avec PHP et architecture MVC.'
+        'desc' => 'Applications web serveurs avec Laravel / NodeJS / Express et APIs RESTful.'
+    ],
+    [
+        'id' => 'm205',
+        'code' => 'M205',
+        'title' => 'Bases de données NoSQL & Avancées',
+        'category' => 'database',
+        'desc' => 'Gestion et optimisation des données avec MongoDB et ORM (Eloquent / Prisma).'
+    ],
+    [
+        'id' => 'm206',
+        'code' => 'M206',
+        'title' => 'Déploiement & Cloud (DevOps)',
+        'category' => 'backend',
+        'desc' => 'Hébergement, Intégration Continue (CI/CD), Git/GitHub et services Cloud (Vercel, Docker).'
     ]
 ];
 ?>
@@ -96,7 +103,6 @@ $modules = [
             overflow-x: hidden;
         }
 
-        /* Subtle Glow Background */
         .bg-glow {
             position: fixed;
             width: 600px;
@@ -211,7 +217,6 @@ $modules = [
             letter-spacing: 1px;
         }
 
-        /* Filter Tabs */
         .filters {
             max-width: 1200px;
             margin: 2rem auto;
@@ -237,7 +242,6 @@ $modules = [
             border-color: var(--primary);
         }
 
-        /* Modules Grid */
         .modules-grid {
             max-width: 1200px;
             margin: 0 auto 5rem;
@@ -293,7 +297,6 @@ $modules = [
             margin-bottom: 1.5rem;
         }
 
-        /* Dropzone */
         .drop-zone {
             border: 2px dashed var(--border);
             border-radius: 12px;
@@ -395,7 +398,6 @@ $modules = [
             opacity: 0.9;
         }
 
-        /* Modal Général */
         .modal {
             display: none;
             position: fixed;
@@ -437,7 +439,6 @@ $modules = [
         .btn-github { background: #24292e; }
         .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
 
-        /* Lightbox Modal (Preview Image) */
         .lightbox-modal {
             display: none;
             position: fixed;
@@ -504,7 +505,7 @@ $modules = [
     </header>
 
     <section class="hero">
-        <h1>Portfolio des <span>Ateliers</span> & Travaux Pratiques</h1>
+        <h1>Portfolio des <span>Ateliers</span> & TP (2ème Année)</h1>
         <p><?php echo htmlspecialchars($specialization); ?> • ISTA OFPPT</p>
         
         <div class="stats-bar">
@@ -521,9 +522,9 @@ $modules = [
 
     <div class="filters">
         <button class="filter-btn active" onclick="filterModules('all')">Tous</button>
-        <button class="filter-btn" onclick="filterModules('base')">Bases</button>
-        <button class="filter-btn" onclick="filterModules('web')">Web Frontend</button>
-        <button class="filter-btn" onclick="filterModules('backend')">Backend</button>
+        <button class="filter-btn" onclick="filterModules('base')">Conception & Agile</button>
+        <button class="filter-btn" onclick="filterModules('web')">Frontend JS</button>
+        <button class="filter-btn" onclick="filterModules('backend')">Backend & Cloud</button>
         <button class="filter-btn" onclick="filterModules('database')">Base de données</button>
     </div>
 

@@ -60,19 +60,8 @@ $modules = [
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
+/* Default theme: Dark (Khel) */
 :root {
-    --bg: #f8f7fc;
-    --surface: #ffffff;
-    --text: #201b35;
-    --muted: #77738b;
-    --primary: #7856e8;
-    --primary-light: #eee8ff;
-    --pink: #ec78b5;
-    --border: #ece9f4;
-    --shadow: 0 10px 30px rgba(49, 30, 91, .06);
-}
-
-body.dark {
     --bg: #11101b;
     --surface: #1b1928;
     --text: #f5f1ff;
@@ -82,6 +71,19 @@ body.dark {
     --pink: #ff9bcf;
     --border: #302b40;
     --shadow: 0 10px 30px rgba(0, 0, 0, .18);
+}
+
+/* Light theme: Light (Byad) */
+body.light-mode {
+    --bg: #f8f7fc;
+    --surface: #ffffff;
+    --text: #201b35;
+    --muted: #77738b;
+    --primary: #7856e8;
+    --primary-light: #eee8ff;
+    --pink: #ec78b5;
+    --border: #ece9f4;
+    --shadow: 0 10px 30px rgba(49, 30, 91, .06);
 }
 
 *, *::before, *::after {
@@ -385,7 +387,6 @@ h1 {
     border-color: var(--primary);
 }
 
-/* Grille réorganisée sur 3 colonnes pour raccourcir les cartes */
 .modules-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -734,7 +735,7 @@ footer {
 
         <div class="nav-right">
             <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Changer le thème">
-                <i class="fa-solid fa-moon"></i>
+                <i class="fa-solid fa-sun"></i>
             </button>
             <a class="github-btn" href="<?= htmlspecialchars($githubUrl) ?>" target="_blank" rel="noopener noreferrer">
                 <i class="fa-brands fa-github"></i> GitHub
@@ -956,19 +957,21 @@ moduleCodes.forEach(code => exerciseData[code] = []);
 document.getElementById('currentYear').textContent = new Date().getFullYear();
 
 function toggleTheme() {
-    const isDark = document.body.classList.toggle('dark');
+    const isLight = document.body.classList.toggle('light-mode');
     const icon = document.querySelector('#themeToggle i');
 
-    icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 
     try {
-        localStorage.setItem('portfolioTheme', isDark ? 'dark' : 'light');
+        localStorage.setItem('portfolioTheme', isLight ? 'light' : 'dark');
     } catch (error) {}
 }
 
 try {
-    if (localStorage.getItem('portfolioTheme') === 'dark') {
-        document.body.classList.add('dark');
+    if (localStorage.getItem('portfolioTheme') === 'light') {
+        document.body.classList.add('light-mode');
+        document.querySelector('#themeToggle i').className = 'fa-solid fa-moon';
+    } else {
         document.querySelector('#themeToggle i').className = 'fa-solid fa-sun';
     }
 } catch (error) {}

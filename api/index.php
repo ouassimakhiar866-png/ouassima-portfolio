@@ -103,6 +103,11 @@ $modules = [
             overflow-x: hidden;
         }
 
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.25; }
+            50% { transform: scale(1.15); opacity: 0.4; }
+        }
+
         .bg-glow {
             position: fixed;
             width: 600px;
@@ -113,6 +118,7 @@ $modules = [
             right: -200px;
             pointer-events: none;
             z-index: 0;
+            animation: pulseGlow 8s ease-in-out infinite;
         }
 
         header {
@@ -163,10 +169,33 @@ $modules = [
 
         .hero {
             max-width: 1200px;
-            margin: 3rem auto;
+            margin: 2rem auto 3rem;
             padding: 0 2rem;
             position: relative;
             z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge span {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #10b981;
         }
 
         .hero h1 {
@@ -262,6 +291,27 @@ $modules = [
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--primary), transparent, var(--accent));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card:hover {
@@ -381,7 +431,8 @@ $modules = [
 
         .btn-atelier {
             width: 100%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            box-shadow: 0 4px 15px var(--primary-glow);
             color: #fff;
             border: none;
             padding: 0.8rem;
@@ -392,10 +443,12 @@ $modules = [
             align-items: center;
             justify-content: center;
             gap: 8px;
+            transition: all 0.3s ease;
         }
 
         .btn-atelier:hover {
-            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--primary-glow);
         }
 
         .modal {
@@ -505,6 +558,9 @@ $modules = [
     </header>
 
     <section class="hero">
+        <div class="hero-badge">
+            <span></span> Portfolio OFFPT - Web Fullstack
+        </div>
         <h1>Portfolio des <span>Ateliers</span> & TP (2ème Année)</h1>
         <p><?php echo htmlspecialchars($specialization); ?> • ISTA OFPPT</p>
         

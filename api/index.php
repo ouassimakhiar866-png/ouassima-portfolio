@@ -1,4 +1,3 @@
-
 <?php
 $studentName = "Ouassima Khiar";
 $specialization = "Développement Digital - Option Web Fullstack";
@@ -85,7 +84,7 @@ body.dark {
     --shadow: 0 12px 40px rgba(0, 0, 0, .18);
 }
 
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -516,12 +515,14 @@ h1 {
     margin-top: 15px;
 }
 
+/* Style moderne avec boutons d'actions au survol (façon hover overlay) */
 .gallery-item {
     position: relative;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: 11px;
     background: var(--bg);
+    border: 1px solid var(--border);
 }
 
 .gallery-item img {
@@ -529,22 +530,57 @@ h1 {
     height: 100%;
     object-fit: cover;
     display: block;
-    cursor: zoom-in;
     transition: transform .3s;
 }
 
-.gallery-item:hover img { transform: scale(1.06); }
-
-.delete-photo {
+.gallery-item-actions {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 27px;
-    height: 27px;
-    border: 0;
-    border-radius: 8px;
-    background: rgba(30, 20, 40, .85);
-    color: white;
+    inset: 0;
+    background: rgba(17, 16, 27, 0.7);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.gallery-item:hover .gallery-item-actions {
+    opacity: 1;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.06);
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #11101b;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+}
+
+.action-btn:hover {
+    transform: scale(1.15);
+    background: #ffffff;
+}
+
+.action-btn.delete {
+    background: rgba(239, 68, 68, 0.9);
+    color: #ffffff;
+}
+
+.action-btn.delete:hover {
+    background: rgb(239, 68, 68);
 }
 
 .empty-gallery {
@@ -906,7 +942,6 @@ footer {
 <script>
 const moduleCodes = <?= json_encode(array_column($modules, 'code')) ?>;
 
-// Les images restent dans le navigateur tant que la page n'est pas actualisée.
 const exerciseData = {};
 moduleCodes.forEach(code => exerciseData[code] = []);
 
@@ -1002,18 +1037,27 @@ function renderGallery(code) {
         const image = document.createElement('img');
         image.src = imgObj.src;
         image.alt = imgObj.name;
-        image.title = 'Cliquer pour agrandir';
-        image.addEventListener('click', () => openLightbox(imgObj.src));
 
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'delete-photo';
-        deleteButton.type = 'button';
-        deleteButton.title = 'Supprimer cette image';
-        deleteButton.setAttribute('aria-label', 'Supprimer cette image');
-        deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
-        deleteButton.addEventListener('click', () => deleteImage(code, imgObj.id));
+        // Overlay actions qui apparaissent au survol (Agrandir & Supprimer)
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'gallery-item-actions';
 
-        item.append(image, deleteButton);
+        const expandBtn = document.createElement('button');
+        expandBtn.className = 'action-btn';
+        expandBtn.type = 'button';
+        expandBtn.title = 'Agrandir';
+        expandBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+        expandBtn.addEventListener('click', () => openLightbox(imgObj.src));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'action-btn delete';
+        deleteBtn.type = 'button';
+        deleteBtn.title = 'Supprimer';
+        deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        deleteBtn.addEventListener('click', () => deleteImage(code, imgObj.id));
+
+        actionsDiv.append(expandBtn, deleteBtn);
+        item.append(image, actionsDiv);
         gallery.appendChild(item);
     });
 }
